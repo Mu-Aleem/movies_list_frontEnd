@@ -62,7 +62,7 @@ const MyMovie = () => {
         <div className="flex flex-wrap gap-3 sm:mt-[120px] mt-[80px] ">
           {currentPosts.map((ele, index) => (
             <div
-              className='w-[180px]  sm:h-[510px] h-[334px] bg-[#092C39] rounded-xl'
+              className='w-[180px]  sm:h-[510px] sm:w-[282px] h-[334px] bg-[#092C39] rounded-xl'
               key={index}
             >
               <img
