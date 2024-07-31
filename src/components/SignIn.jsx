@@ -40,12 +40,13 @@ const SignIn = () => {
     }
   };
   return (
-    <div className="bg-[#093545] w-full h-auto flex flex-col ">
+    <div className='bg-[#093545] w-full h-auto min-h-screen flex flex-col justify-between'>
+
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-[300px] mx-auto flex flex-col gap-7 justify-center items-center mt-[220px] mb-[120px]"
+        className="w-[90%] sm:w-[300px] mx-auto flex flex-col gap-7 justify-center items-center mt-[220px] mb-[120px]"
       >
-        <div className="text-[64px] font-semibold text-white text-center">
+        <div className="sm:text-[64px] text-[48px] font-semibold text-white text-center">
           Sign In
         </div>
         <div className="w-full">
