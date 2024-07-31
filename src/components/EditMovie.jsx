@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import downloadIcon from "../assets/svg/download.svg";
-import FooterIconComp from "./FooterIconComp";
+import FooterIconComp from "./Footer";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
@@ -8,7 +8,7 @@ import httpRequest from "../axios/index";
 import { MOVIES } from "../constants/apiEndPoints";
 import toast from "react-hot-toast";
 
-const EditComp = () => {
+const EditMovie = () => {
   const { id } = useParams();
   const fileInputRef = useRef(null);
 
@@ -253,4 +253,4 @@ const EditComp = () => {
   );
 };
 
-export default EditComp;
+export default EditMovie;

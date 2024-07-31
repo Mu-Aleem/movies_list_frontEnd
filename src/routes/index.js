@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { PublicRoute, ProtectedRoute } from "./ProtectedRoute";
 
 import CreateMovie from "../components/CreateMovie";
-import EditComp from "../components/EditComp";
+import EditMovie from "../components/EditMovie";
 import MyMovie from "../components/MyMovie";
 import Login from "../pages/Login";
 import ScrollToTop from "../components/ScrollToTop";
@@ -43,7 +43,7 @@ const AppRoutes = () => {
             path="/edit-movie/:id"
             element={
               <ProtectedRoute>
-                <EditComp />
+                <EditMovie />
               </ProtectedRoute>
             }
           />

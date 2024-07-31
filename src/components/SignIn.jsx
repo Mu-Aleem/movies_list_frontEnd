@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import FooterIconComp from "./FooterIconComp";
+import FooterIconComp from "./Footer";
 import { useState } from "react";
 import httpRequest from "../axios/index";
 import { LOGIN } from "../constants/apiEndPoints";
@@ -40,8 +40,7 @@ const SignIn = () => {
     }
   };
   return (
-    <div className='bg-[#093545] w-full h-auto min-h-screen flex flex-col justify-between'>
-
+    <div className="bg-[#093545] w-full h-auto min-h-screen flex flex-col justify-between">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-[90%] sm:w-[300px] mx-auto flex flex-col gap-7 justify-center items-center mt-[220px] mb-[120px]"
@@ -89,7 +88,10 @@ const SignIn = () => {
             className="h-[17px] w-[18px]  rounded-none accent-[#224957] font-custom"
             {...register("rememberMe")}
           />
-          <label for="checkbox" className="font-normal text-white text-[14px] font-custom">
+          <label
+            for="checkbox"
+            className="font-normal text-white text-[14px] font-custom"
+          >
             Remember me
           </label>
         </div>
