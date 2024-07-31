@@ -3,36 +3,38 @@ import FooterIconComp from "./FooterIconComp";
 import { useState } from "react";
 import httpRequest from "../axios/index";
 import { LOGIN } from "../constants/apiEndPoints";
+import { useAppDispatch } from "../lib/store/hook";
+import { setAuth } from "../lib/store/slice/user/UserSlice";
+import toast from "react-hot-toast";
 
-const SignInComp = () => {
+const SignIn = () => {
+  const dispatch = useAppDispatch();
   const [Loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const onSubmit = async (data) => {
-    console.log("🚀 ~ onSubmit ~ data:", data);
     try {
       setLoading(true);
-      //   const resp = await httpRequest.post(`${LOGIN}`, { data });
-      //   console.log("🚀 ~ onSubmit ~ resp:", resp);
+      const response = await httpRequest.post(`${LOGIN}`, data);
+      if (response?.status === 200) {
+        const responseData = response.data || {};
+        const { user, token } = responseData.data || {};
+        if (user && token) {
+          dispatch(setAuth(user));
+          localStorage.setItem("auth_token", JSON.stringify(token));
+        }
+      }
     } catch (error) {
-      console.log(
-        "🚀 ~ file: Login.js:173 ~ handleSubmit ~ error:",
-        error.message
-      );
-
-      // toast.error(
-      //   (error?.message || "Something went wrong").replace(
-      //     "Validation failed: ",
-      //     ""
-      //   )
-      // );
+      const errorMessage =
+        error.response.data.message || "Something went wrong";
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
-    console.log(data);
   };
   return (
     <div className="bg-[#093545] w-full h-auto flex flex-col ">
@@ -49,7 +51,6 @@ const SignInComp = () => {
             alt="Email"
             placeholder="Email"
             {...register("email", { required: "Email is required" })}
-            //   className="h-[45px] w-full bg-[#224957] rounded-xl pl-4"
             className={`h-[45px] w-full bg-[#224957] rounded-xl pl-4 ${
               errors.email ? "border border-red-500" : ""
             }`}
@@ -103,4 +104,4 @@ const SignInComp = () => {
   );
 };
 
-export default SignInComp;
+export default SignIn;

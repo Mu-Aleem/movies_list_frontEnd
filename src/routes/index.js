@@ -7,7 +7,7 @@ import NewMovie from "../components/NewMovie";
 import CreateMovie from "../components/CreateMovie";
 import EditComp from "../components/EditComp";
 import MyMovie from "../components/MyMovie";
-import SignIn from "../pages/SignIn";
+import Login from "../pages/Login";
 import ScrollToTop from "../components/ScrollToTop";
 
 const AppRoutes = () => {
@@ -20,7 +20,7 @@ const AppRoutes = () => {
             path="/"
             element={
               <PublicRoute>
-                <SignIn />
+                <Login />
               </PublicRoute>
             }
           />
@@ -28,40 +28,40 @@ const AppRoutes = () => {
             path="/sign-in"
             element={
               <PublicRoute>
-                <SignIn />
+                <Login />
               </PublicRoute>
             }
           />
           <Route
             path="/new-movie"
             element={
-              <PublicRoute>
+              <ProtectedRoute>
                 <NewMovie />
-              </PublicRoute>
+              </ProtectedRoute>
             }
           />
           <Route
             path="/add-movie"
             element={
-              <PublicRoute>
+              <ProtectedRoute>
                 <CreateMovie />
-              </PublicRoute>
+              </ProtectedRoute>
             }
           />
           <Route
             path="/edit-movie"
             element={
-              <PublicRoute>
+              <ProtectedRoute>
                 <EditComp />
-              </PublicRoute>
+              </ProtectedRoute>
             }
           />
           <Route
             path="/movies"
             element={
-              <PublicRoute>
+              <ProtectedRoute>
                 <MyMovie />
-              </PublicRoute>
+              </ProtectedRoute>
             }
           />
         </Routes>
