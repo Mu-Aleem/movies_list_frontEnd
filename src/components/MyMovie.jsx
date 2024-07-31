@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import FooterIconComp from "./FooterIconComp";
+import FooterIconComp from "./Footer";
 import addIcon from "../assets/svg/add.svg";
 import logoutIcon from "../assets/svg/logout.svg";
 // import Pagination from "./Pagination";
@@ -10,7 +10,7 @@ import httpRequest from "../axios/index";
 import { LOGOUT, MOVIES } from "../constants/apiEndPoints";
 import toast from "react-hot-toast";
 import ReactPaginate from "react-paginate";
-import EmptyMovies from "./EmptyMovies";
+import EmptyMovieList from "./EmptyMovieList";
 import Skeleton from "./Skeleton";
 
 const MyMovie = () => {
@@ -60,8 +60,7 @@ const MyMovie = () => {
 
   return (
     <div className="bg-[#093545] w-full h-auto flex flex-col gap-24 justify-between">
-     
-        <div className="w-[85%] mx-auto flex flex-col sm:mt-[120px] mt-[80px]">
+      <div className="w-[85%] mx-auto flex flex-col sm:mt-[120px] mt-[80px]">
         {/* Upper section  */}
         <div className="flex justify-between">
           <Link to="/add-movie" className="flex items-center sm:gap-4 gap-3">
@@ -89,53 +88,53 @@ const MyMovie = () => {
           </div>
         </div>
 
-        {!loading && movies && movies?.length === 0 && <EmptyMovies />}
-        {
-        loading ? <div className="flex flex-wrap gap-5 sm:mt-[120px] mt-[80px] w-[95%]  ">
-          <Skeleton/>
-          <Skeleton/>
-          <Skeleton/>
-          <Skeleton/>
-          <Skeleton/>
-          <Skeleton/>
-          <Skeleton/>
-          <Skeleton/>
-        </div> : 
-        <div>
-
-        {/* Movie Table Card */}
-        {!loading && movies && movies?.length > 0 && (
-          <div className="flex flex-wrap gap-3 sm:mt-[120px] mt-[80px] ">
-            {movies &&
-              movies?.map((ele, index) => (
-                <div
-                  className="w-[180px]  sm:h-[510px] sm:w-[282px] h-[334px] bg-[#092C39] rounded-xl hover:bg-[#082935]"
-                  key={index}
-                  onClick={() => {
-                    navigate(`/edit-movie/${ele?._id}`);
-                  }}
-                >
-                  <img
-                    src={ele?.poster}
-                    alt={ele?.title}
-                    className="w-[180px] h-[246px] sm:w-[266px] sm:h-[400px] border-2 mx-auto mt-2 rounded-xl object-cover"
-                  />
-                  <div className="pl-3 flex flex-col gap-3 my-4 text-white">
-                    <div className="sm:text-[20px] text-[16px]">
-                      {ele?.title}
+        {!loading && movies && movies?.length === 0 && <EmptyMovieList />}
+        {loading ? (
+          <div className="flex flex-wrap gap-5 sm:mt-[120px] mt-[80px] w-[95%]  ">
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+          </div>
+        ) : (
+          <div>
+            {/* Movie Table Card */}
+            {!loading && movies && movies?.length > 0 && (
+              <div className="flex flex-wrap gap-3 sm:mt-[120px] mt-[80px] ">
+                {movies &&
+                  movies?.map((ele, index) => (
+                    <div
+                      className="w-[180px]  sm:h-[510px] sm:w-[282px] h-[334px] bg-[#092C39] rounded-xl hover:bg-[#082935]"
+                      key={index}
+                      onClick={() => {
+                        navigate(`/edit-movie/${ele?._id}`);
+                      }}
+                    >
+                      <img
+                        src={ele?.poster}
+                        alt={ele?.title}
+                        className="w-[180px] h-[246px] sm:w-[266px] sm:h-[400px] border-2 mx-auto mt-2 rounded-xl object-cover"
+                      />
+                      <div className="pl-3 flex flex-col gap-3 my-4 text-white">
+                        <div className="sm:text-[20px] text-[16px]">
+                          {ele?.title}
+                        </div>
+                        <div className="font-normal text-sm">
+                          {ele.publishingYear}
+                        </div>
+                      </div>
                     </div>
-                    <div className="font-normal text-sm">
-                      {ele.publishingYear}
-                    </div>
-                  </div>
-                </div>
-              ))}
+                  ))}
+              </div>
+            )}
           </div>
         )}
-        </div>
-      }
 
-        {totalPages  && (
+        {totalPages && (
           <ReactPaginate
             previousLabel={"Prev"}
             nextLabel={"Next"}

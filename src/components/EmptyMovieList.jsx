@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const EmptyMovies = () => {
+const EmptyMovieList = () => {
   return (
     <div className="bg-[#093545] w-full h-auto min-h-screen flex flex-col gap-24 justify-between">
       <div className="flex flex-col gap-7 justify-center mt-[324px] mb-[170px]">
@@ -19,4 +19,4 @@ const EmptyMovies = () => {
   );
 };
 
-export default EmptyMovies;
+export default EmptyMovieList;

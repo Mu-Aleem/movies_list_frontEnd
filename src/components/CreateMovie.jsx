@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import downloadIcon from "../assets/svg/download.svg";
-import FooterIconComp from "./FooterIconComp";
+import FooterIconComp from "./Footer";
 import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 import httpRequest from "../axios/index";
