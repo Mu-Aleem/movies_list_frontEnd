@@ -10,7 +10,7 @@ const EmptyMovies = () => {
         </div>
         <Link
           to="/add-movie"
-          className="sm:w-[202px] w-[87%] h-[54px] rounded-[10px] mx-auto bg-[#2BD17E] flex justify-center items-center text-white font-semibold text-[16px]"
+          className="sm:w-[202px] w-[87%] h-[54px] rounded-[10px] mx-auto bg-[#2BD17E] flex justify-center items-center text-white font-semibold text-[16px] font-Montserrat"
         >
           Add a new movie
         </Link>
