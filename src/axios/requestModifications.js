@@ -1,5 +1,5 @@
-import { clearAuthStorage } from "../redux/slice/user/UserSlice";
-import { store } from "../redux/store";
+import { store } from "../lib/store";
+import { clearAuthStorage } from "../lib/store/slice/user/UserSlice";
 
 export const requestHandler = (request) => {
   const state = store.getState();
