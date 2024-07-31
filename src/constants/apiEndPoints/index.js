@@ -4,5 +4,6 @@ export const API_BASE_URL =
 
 const LOGIN = "auth/login";
 const LOGOUT = "auth/logout";
+const MOVIES = "/movies";
 
-export { LOGIN, LOGOUT };
+export { LOGIN, LOGOUT, MOVIES };

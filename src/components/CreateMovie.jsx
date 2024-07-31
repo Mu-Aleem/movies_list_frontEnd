@@ -3,8 +3,14 @@ import downloadIcon from "../assets/svg/download.svg";
 import FooterIconComp from "./FooterIconComp";
 import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
+import httpRequest from "../axios/index";
+import { MOVIES } from "../constants/apiEndPoints";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const CreateMovie = () => {
+  const navigate = useNavigate();
+  const [Loading, setLoading] = useState(false);
   const {
     control,
     handleSubmit,
@@ -59,9 +65,35 @@ const CreateMovie = () => {
     }
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     validateImage();
-    console.log("🚀 ~ onSubmit ~ data:", data);
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("file", data.image);
+    formData.append("upload_preset", "fzu5ffjp");
+    let imageURL;
+    try {
+      if (data.image) {
+        const response = await axios.post(
+          "https://api.cloudinary.com/v1_1/dpyxsusph/image/upload",
+          formData
+        );
+        imageURL = response?.data?.secure_url;
+      }
+      if (imageURL) {
+        data.poster = imageURL;
+      }
+      delete data.image;
+      const response = await httpRequest.post(`${MOVIES}`, data);
+      if (response.status === 200 || 201) {
+        toast.success("Movie created successfully");
+        navigate("/movies");
+      }
+    } catch (error) {
+      console.error("Error uploading image", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -198,9 +230,10 @@ const CreateMovie = () => {
               </button>
               <button
                 type="submit"
+                disabled={Loading}
                 className="w-[167px] h-[56px] rounded-[10px] bg-[#2BD17E] flex justify-center items-center text-white font-semibold text-[16px]"
               >
-                submit
+                {Loading ? "Loading..." : "submit"}
               </button>
             </div>
           </div>
