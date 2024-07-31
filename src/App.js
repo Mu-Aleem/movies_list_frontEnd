@@ -1,22 +1,10 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import SignIn from "./pages/SignIn";
-
+import AppRoutes from "./routes";
 function App() {
   return (
     <>
-      <RouterProvider router={appRouter} />
+      <AppRoutes />
     </>
   );
 }
 
-const appRouter = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <>
-        <SignIn />
-      </>
-    ),
-  },
-]);
 export default App;

@@ -1,77 +1,69 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ScrollToTop } from "../components";
-import {
-  Home,
-  LoginPage,
-  SignUpPage,
-  ForgotPasswordPage,
-  ChangePasswordPage,
-  // CodeVerificationPage,
-  SignupVerificationPage,
-  CustomerTypePage,
-  BusinessCustomerPage,
-  PaymentMethodPage,
-  PendingApprovalPage,
-  PasswordSuccessfullPage,
-  ProfileMainPage,
-  // admin section
-  AdminLoginPage,
 
-  // Dispatches
-  DispatcheMainPage,
-  DispatchesDetailsPage,
+import { PublicRoute, ProtectedRoute } from "./ProtectedRoute";
 
-  // admin custoimer
-  CustomerMainPage,
-  CustomerDetailsPage,
-  UploadDocumentsPage,
-  // Drivers
-  DriversMainPage,
-  PersonalDetailsPage,
-  // Job History
-  JobHistoryMainPage,
-
-  // Accounting
-  AccountingMainPage,
-  // Agents
-  AgentsMainPage,
-  NotFound,
-  WalletCreatedPage,
-  LinkExpiredPage,
-  Forbidden,
-  AddCustomerPage,
-  AddDriverPage,
-  AddDispatchesPage,
-  UpdateDriverPage,
-} from "../pages";
-import { useSelector } from "react-redux";
-import {
-  PublicRoute,
-  ProtectedRoute,
-  AdminRoute,
-  AdminPublicRoute,
-} from "./ProtectedRoute";
+import NewMovie from "../components/NewMovie";
+import CreateMovie from "../components/CreateMovie";
+import EditComp from "../components/EditComp";
+import MyMovie from "../components/MyMovie";
+import SignIn from "../pages/SignIn";
+import ScrollToTop from "../components/ScrollToTop";
 
 const AppRoutes = () => {
-  const { user: useInfo = {}, isAuthenticated = false } = useSelector(
-    (state) => state.auth
-  );
   return (
     <>
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
           <Route
-            path="/login"
+            path="/"
             element={
-              <PublicRoute isAuthenticated={isAuthenticated}>
-                <LoginPage />
+              <PublicRoute>
+                <SignIn />
               </PublicRoute>
             }
           />
-          <Route path="/" element={<Home />} />
-          <Route path="*" element={<NotFound />} />
+          <Route
+            path="/sign-in"
+            element={
+              <PublicRoute>
+                <SignIn />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/new-movie"
+            element={
+              <PublicRoute>
+                <NewMovie />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/add-movie"
+            element={
+              <PublicRoute>
+                <CreateMovie />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/edit-movie"
+            element={
+              <PublicRoute>
+                <EditComp />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/movies"
+            element={
+              <PublicRoute>
+                <MyMovie />
+              </PublicRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </>
