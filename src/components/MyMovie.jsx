@@ -63,7 +63,7 @@ const MyMovie = () => {
         {/* Upper section  */}
         <div className="flex justify-between">
           <Link to="/add-movie" className="flex items-center sm:gap-4 gap-3">
-            <div className="text-[32px] sm:text-[48px] font-semibold text-white text-start ">
+            <div className="text-[32px] sm:text-[48px] font-semibold text-white text-start font-custom">
               My Movies
             </div>
             <img
@@ -76,7 +76,7 @@ const MyMovie = () => {
             className="flex items-center gap-3 cursor-pointer"
             onClick={handleLogout}
           >
-            <div className="text-[16px] font-bold text-white sm:block hidden">
+            <div className="text-[16px] font-bold text-white sm:block hidden font-Montserrat">
               Logout
             </div>
             <img

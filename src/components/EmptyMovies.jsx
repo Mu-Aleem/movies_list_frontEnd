@@ -5,7 +5,7 @@ const EmptyMovies = () => {
   return (
     <div className="bg-[#093545] w-full h-auto min-h-screen flex flex-col gap-24 justify-between">
       <div className="flex flex-col gap-7 justify-center mt-[324px] mb-[170px]">
-        <div className="sm:text-[48px] text-[32px] font-semibold text-white text-center sm:px-0 px-4">
+        <div className="sm:text-[48px] text-[32px] font-semibold text-white text-center sm:px-0 px-4 font-Montserrat">
           Your movie list is empty
         </div>
         <Link

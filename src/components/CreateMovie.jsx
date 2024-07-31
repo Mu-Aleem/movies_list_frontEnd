@@ -99,7 +99,7 @@ const CreateMovie = () => {
   return (
     <div className="bg-[#093545] w-full h-auto flex flex-col gap-24">
       <div className="w-[94%] sm:w-[75%] mx-auto flex flex-col mt-[80px] sm:mt-[120px]">
-        <div className="text-[32px] sm:text-[48px] sm:w-auto w-[380px] mx-auto sm:mx-0 font-semibold text-white text-start sm:mb-[120px] mb-[80px]">
+        <div className="text-[32px] sm:text-[48px] sm:w-auto w-[380px] mx-auto sm:mx-0 font-semibold text-white text-start sm:mb-[120px] mb-[80px] font-Montserrat">
           Create a new movie
         </div>
         <form
@@ -143,7 +143,7 @@ const CreateMovie = () => {
                   <input
                     type="number"
                     placeholder="Publishing year"
-                    className="h-[45px] w-[216px] bg-[#224957] rounded-[10px] pl-4"
+                    className="h-[45px] w-[216px] bg-[#224957] rounded-[10px] pl-4 font-Montserrat"
                     {...field}
                   />
                   {errors.publishingYear && (
@@ -171,7 +171,7 @@ const CreateMovie = () => {
               onClick={handleClick}
             >
               <img src={downloadIcon} alt="" />
-              <div className="text-white text-[14px]">Drop an image here</div>
+              <div className="text-white text-[14px] font-Montserrat">Drop an image here</div>
             </div>
           </div>
 
@@ -186,7 +186,7 @@ const CreateMovie = () => {
                   <input
                     type="text"
                     placeholder="Title"
-                    className="h-[45px] w-[362px] bg-[#224957] rounded-[10px] pl-4"
+                    className="h-[45px] w-[362px] bg-[#224957] rounded-[10px] pl-4 font-Montserrat"
                     {...field}
                   />
                   {/* Error message for title */}
@@ -212,7 +212,7 @@ const CreateMovie = () => {
                   <input
                     type="number"
                     placeholder="Publishing year"
-                    className="h-[45px] w-[216px] bg-[#224957] rounded-[10px] pl-4"
+                    className="h-[45px] w-[216px] bg-[#224957] rounded-[10px] pl-4 font-Montserrat"
                     {...field}
                   />
                   {errors.publishingYear && (
@@ -225,13 +225,13 @@ const CreateMovie = () => {
             />
 
             <div className="flex gap-4 mt-9">
-              <button className="w-[167px] h-[56px] rounded-[10px]  flex justify-center items-center text-white font-semibold text-[16px] border-[1px]">
+              <button className="w-[167px] h-[56px] rounded-[10px]  flex justify-center items-center text-white font-semibold text-[16px] border-[1px] font-Montserrat">
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={Loading}
-                className="w-[167px] h-[56px] rounded-[10px] bg-[#2BD17E] flex justify-center items-center text-white font-semibold text-[16px]"
+                className="w-[167px] h-[56px] rounded-[10px] bg-[#2BD17E] flex justify-center items-center text-white font-semibold text-[16px] font-Montserrat"
               >
                 {Loading ? "Loading..." : "submit"}
               </button>
