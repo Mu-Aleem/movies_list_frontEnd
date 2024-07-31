@@ -30,46 +30,26 @@ const CreateMovie = () => {
   const fileInputRef = useRef(null);
   const [previewUrl, setPreviewUrl] = useState("");
 
-  const handleClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
-  const validateImage = () => {
-    if (!fileInputRef.current.files.length) {
-      setError("image", { type: "manual", message: "Image is required" });
-    }
-  };
+  // const handleClick = () => {
+  //   document.getElementById("fileInput").click();
+  //   // if (fileInputRef.current) {
+  //   //   fileInputRef.current.click();
+  //   // }
+  // };
+
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
       setPreviewUrl(URL.createObjectURL(file));
       setValue("image", file);
       clearErrors("image");
-      // const formData = new FormData();
-      // formData.append("file", file);
-      // formData.append("upload_preset", "fzu5ffjp");
-      // try {
-      //   const response = await axios.post(
-      //     "https://api.cloudinary.com/v1_1/dpyxsusph/image/upload",
-      //     formData
-      //   );
-      //   console.log(
-      //     "🚀 ~ handleUploadFile ~ response.data.secure_url:",
-      //     response?.data?.secure_url
-      //   );
-      // } catch (error) {
-      //   console.error("Error uploading image", error);
-      // } finally {
-      // }
     }
   };
 
   const onSubmit = async (data) => {
-    validateImage();
     setLoading(true);
     const formData = new FormData();
-    formData.append("file", data.image);
+    formData.append("file", data.image[0]);
     formData.append("upload_preset", "fzu5ffjp");
     let imageURL;
     try {
@@ -161,18 +141,24 @@ const CreateMovie = () => {
             <input
               type="file"
               accept="image/*"
-              ref={fileInputRef}
+              id="fileInput"
               className="hidden"
               onChange={handleImageChange}
+              {...register("image", { required: "image is required" })}
             />
 
-            <div
+            <label
               className="border-2 border-dotted border-white rounded-[10px] sm:w-[473px] w-[380px] sm:h-[504px] h-[372px] bg-[#224957] flex flex-col justify-center items-center gap-3"
-              onClick={handleClick}
+              htmlFor="fileInput"
             >
               <img src={downloadIcon} alt="" />
-              <div className="text-white text-[14px] font-Montserrat">Drop an image here</div>
-            </div>
+              <div className="text-white text-[14px] font-Montserrat">
+                Drop an image here
+              </div>
+            </label>
+            {errors.image && (
+              <p className="text-red-500">{errors.image.message}</p>
+            )}
           </div>
 
           {/* Right side  */}
