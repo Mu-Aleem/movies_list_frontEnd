@@ -40,7 +40,7 @@ const AppRoutes = () => {
             }
           />
           <Route
-            path="/edit-movie"
+            path="/edit-movie/:id"
             element={
               <ProtectedRoute>
                 <EditComp />

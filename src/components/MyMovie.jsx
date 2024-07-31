@@ -97,9 +97,12 @@ const MyMovie = () => {
                 <div
                   className="w-[180px]  sm:h-[510px] sm:w-[282px] h-[334px] bg-[#092C39] rounded-xl hover:bg-[#082935]"
                   key={index}
+                  onClick={() => {
+                    navigate(`/edit-movie/${ele?._id}`);
+                  }}
                 >
                   <img
-                    src={ele.poster}
+                    src={ele?.poster}
                     alt={ele?.title}
                     className="w-[180px] h-[246px] sm:w-[266px] sm:h-[400px] border-2 mx-auto mt-2 rounded-xl"
                   />
