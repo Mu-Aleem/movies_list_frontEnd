@@ -171,7 +171,7 @@ const CreateMovie = () => {
               onClick={handleClick}
             >
               <img src={downloadIcon} alt="" />
-              <div className="text-white text-[14px]">Drop an image here</div>
+              <div className="text-white text-[14px] font-Montserrat">Drop an image here</div>
             </div>
           </div>
 
@@ -186,7 +186,7 @@ const CreateMovie = () => {
                   <input
                     type="text"
                     placeholder="Title"
-                    className="h-[45px] w-[362px] bg-[#224957] rounded-[10px] pl-4"
+                    className="h-[45px] w-[362px] bg-[#224957] rounded-[10px] pl-4 font-Montserrat"
                     {...field}
                   />
                   {/* Error message for title */}
@@ -212,7 +212,7 @@ const CreateMovie = () => {
                   <input
                     type="number"
                     placeholder="Publishing year"
-                    className="h-[45px] w-[216px] bg-[#224957] rounded-[10px] pl-4"
+                    className="h-[45px] w-[216px] bg-[#224957] rounded-[10px] pl-4 font-Montserrat"
                     {...field}
                   />
                   {errors.publishingYear && (
