@@ -1,9 +1,25 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react'
 import FooterIconComp from './FooterIconComp'
 import addIcon from "../assets/svg/add.svg"
 import logoutIcon from "../assets/svg/logout.svg"
+import Pagination from './Pagination'
 
 const MyMovie = () => {
+    const [products, setProducts] = useState([])
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage, setPostPerPage] = useState(8)
+
+    useEffect(()=>{
+        fetch('https://fakestoreapi.com/products')
+            .then(res=>res.json())
+            .then(data => setProducts(data))
+    },[])
+
+    const lastPostIndex = currentPage * postsPerPage
+    const firstPostIndex = lastPostIndex - postsPerPage
+    const currentPosts = products.slice(firstPostIndex, lastPostIndex)
+   
+
   return (
     <div className='bg-[#093545] w-full h-auto flex flex-col gap-24 justify-between'>
 
@@ -26,13 +42,25 @@ const MyMovie = () => {
     </div>
 
     {/* Movie Table Card */}
-    <div className='w-[282px] mt-[120px] h-[510px] bg-[#092C39] rounded-xl'>
-        <img src={logoutIcon} alt="" className='w-[266px] h-[400px] border-2 mx-auto mt-2 rounded-xl' />
+    <div className='flex flex-wrap gap-3 mt-[120px] '>
+        {currentPosts.map( (ele,index) => (
+    <div className='w-[282px]  h-[510px] bg-[#092C39] rounded-xl mb-6' key={index}>
+        <img src={ele.image} alt="" className='w-[266px] h-[400px] border-2 mx-auto mt-2 rounded-xl' />
         <div className='pl-3 flex flex-col gap-3 my-4 text-white'>
-        <div className='text-[20px]'>Movie 1</div>
-        <div className='font-normal text-sm'>2021</div>
+        <div className='text-[20px]'>{ele.category}</div>
+        <div className='font-normal text-sm'>{ele.price}</div>
         </div>
     </div>
+        ))}
+    </div>
+
+        <Pagination 
+        totalPosts={products.length}
+        postsPerPage={postsPerPage} 
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+        />
+
 
         </div>
 
