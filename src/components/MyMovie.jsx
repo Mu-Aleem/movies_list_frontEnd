@@ -11,6 +11,7 @@ import { LOGOUT, MOVIES } from "../constants/apiEndPoints";
 import toast from "react-hot-toast";
 import ReactPaginate from "react-paginate";
 import EmptyMovies from "./EmptyMovies";
+import Skeleton from "./Skeleton";
 
 const MyMovie = () => {
   const dispatch = useAppDispatch();
@@ -59,7 +60,8 @@ const MyMovie = () => {
 
   return (
     <div className="bg-[#093545] w-full h-auto flex flex-col gap-24 justify-between">
-      <div className="w-[85%] mx-auto flex flex-col sm:mt-[120px] mt-[80px]">
+     
+        <div className="w-[85%] mx-auto flex flex-col sm:mt-[120px] mt-[80px]">
         {/* Upper section  */}
         <div className="flex justify-between">
           <Link to="/add-movie" className="flex items-center sm:gap-4 gap-3">
@@ -76,7 +78,7 @@ const MyMovie = () => {
             className="flex items-center gap-3 cursor-pointer"
             onClick={handleLogout}
           >
-            <div className="text-[16px] font-bold text-white sm:block hidden font-Montserrat">
+            <div className="text-[16px] -bold text-white sm:block hidden font-Montserrat">
               Logout
             </div>
             <img
@@ -88,6 +90,18 @@ const MyMovie = () => {
         </div>
 
         {!loading && movies && movies?.length === 0 && <EmptyMovies />}
+        {
+        loading ? <div className="flex flex-wrap gap-5 sm:mt-[120px] mt-[80px] w-[95%]  ">
+          <Skeleton/>
+          <Skeleton/>
+          <Skeleton/>
+          <Skeleton/>
+          <Skeleton/>
+          <Skeleton/>
+          <Skeleton/>
+          <Skeleton/>
+        </div> : 
+        <div>
 
         {/* Movie Table Card */}
         {!loading && movies && movies?.length > 0 && (
@@ -101,7 +115,7 @@ const MyMovie = () => {
                   <img
                     src={ele.poster}
                     alt={ele?.title}
-                    className="w-[180px] h-[246px] sm:w-[266px] sm:h-[400px] border-2 mx-auto mt-2 rounded-xl"
+                    className="w-[180px] h-[246px] sm:w-[266px] sm:h-[400px] border-2 mx-auto mt-2 rounded-xl object-cover"
                   />
                   <div className="pl-3 flex flex-col gap-3 my-4 text-white">
                     <div className="sm:text-[20px] text-[16px]">
@@ -115,10 +129,12 @@ const MyMovie = () => {
               ))}
           </div>
         )}
+        </div>
+      }
 
-        {totalPages > 1 && (
+        {totalPages  && (
           <ReactPaginate
-            previousLabel={"Previous"}
+            previousLabel={"Prev"}
             nextLabel={"Next"}
             breakLabel={"..."}
             pageCount={totalPages}
