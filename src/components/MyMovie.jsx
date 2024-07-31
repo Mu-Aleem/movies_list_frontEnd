@@ -2,35 +2,23 @@ import React, { useState, useEffect } from "react";
 import FooterIconComp from "./FooterIconComp";
 import addIcon from "../assets/svg/add.svg";
 import logoutIcon from "../assets/svg/logout.svg";
-import Pagination from "./Pagination";
+// import Pagination from "./Pagination";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../lib/store/hook";
 import { clearAuthStorage } from "../lib/store/slice/user/UserSlice";
 import httpRequest from "../axios/index";
 import { LOGOUT, MOVIES } from "../constants/apiEndPoints";
 import toast from "react-hot-toast";
+import ReactPaginate from "react-paginate";
+import EmptyMovies from "./EmptyMovies";
 
 const MyMovie = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [Loading, setLoading] = useState(false);
-
-  const [page, setpage] = useState(1);
+  const [loading, setLoading] = useState(true);
   const [movies, setmovies] = useState([]);
-
-  const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostPerPage] = useState(8);
-
-  useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
-  }, []);
-
-  const lastPostIndex = currentPage * postsPerPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
-  const currentPosts = products.slice(firstPostIndex, lastPostIndex);
+  const [totalPages, setTotalPages] = useState(1);
 
   const handleLogout = async () => {
     const response = await httpRequest.post(`${LOGOUT}`);
@@ -42,15 +30,17 @@ const MyMovie = () => {
   };
 
   useEffect(() => {
-    getMovies(MOVIES, page);
-  }, [page]);
+    getMovies(MOVIES, currentPage);
+  }, [currentPage]);
 
   const getMovies = async (url, page) => {
     try {
       setLoading(true);
       const response = await httpRequest.get(`${url}?page=${page}&limit=8`);
-      console.log("🚀 ~ getMovies ~ response:", response);
-      if (response?.status === 200) {
+      if (response?.status === 200 || 201) {
+        const data = response?.data?.data;
+        setmovies(data?.data || []);
+        setTotalPages(data?.meta?.totalPages || 1);
       }
     } catch (error) {
       const errorMessage =
@@ -59,6 +49,12 @@ const MyMovie = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handlePageClick = (event) => {
+    const selectedPage = event.selected;
+    const Currentpage = selectedPage === 0 ? 1 : selectedPage + 1;
+    setCurrentPage(Currentpage);
   };
 
   return (
@@ -76,7 +72,6 @@ const MyMovie = () => {
               className="sm:w-[32px] w-[20px] h-[20px] sm:h-[32px] mt-[8px]"
             />
           </Link>
-
           <div
             className="flex items-center gap-3 cursor-pointer"
             onClick={handleLogout}
@@ -92,32 +87,56 @@ const MyMovie = () => {
           </div>
         </div>
 
-        {/* Movie Table Card */}
-        <div className="flex flex-wrap gap-3 sm:mt-[120px] mt-[80px] ">
-          {currentPosts.map((ele, index) => (
-            <div
-              className="w-[180px]  sm:h-[510px] sm:w-[282px] h-[334px] bg-[#092C39] rounded-xl hover:bg-[#082935]"
-              key={index}
-            >
-              <img
-                src={ele.image}
-                alt=""
-                className="w-[180px] h-[246px] sm:w-[266px] sm:h-[400px] border-2 mx-auto mt-2 rounded-xl"
-              />
-              <div className="pl-3 flex flex-col gap-3 my-4 text-white">
-                <div className="sm:text-[20px] text-[16px]">{ele.category}</div>
-                <div className="font-normal text-sm">{ele.price}</div>
-              </div>
-            </div>
-          ))}
-        </div>
+        {!loading && movies && movies?.length === 0 && <EmptyMovies />}
 
-        {/* <Pagination
-          totalPosts={products.length}
-          postsPerPage={postsPerPage}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-        /> */}
+        {/* Movie Table Card */}
+        {!loading && movies && movies?.length > 0 && (
+          <div className="flex flex-wrap gap-3 sm:mt-[120px] mt-[80px] ">
+            {movies &&
+              movies?.map((ele, index) => (
+                <div
+                  className="w-[180px]  sm:h-[510px] sm:w-[282px] h-[334px] bg-[#092C39] rounded-xl hover:bg-[#082935]"
+                  key={index}
+                >
+                  <img
+                    src={ele.poster}
+                    alt={ele?.title}
+                    className="w-[180px] h-[246px] sm:w-[266px] sm:h-[400px] border-2 mx-auto mt-2 rounded-xl"
+                  />
+                  <div className="pl-3 flex flex-col gap-3 my-4 text-white">
+                    <div className="sm:text-[20px] text-[16px]">
+                      {ele?.title}
+                    </div>
+                    <div className="font-normal text-sm">
+                      {ele.publishingYear}
+                    </div>
+                  </div>
+                </div>
+              ))}
+          </div>
+        )}
+
+        {totalPages > 1 && (
+          <ReactPaginate
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
+            breakLabel={"..."}
+            pageCount={totalPages}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            pageClassName={"page-item"}
+            pageLinkClassName={"page-link"}
+            previousClassName={"page-item"}
+            previousLinkClassName={"page-link"}
+            nextClassName={"page-item"}
+            nextLinkClassName={"page-link"}
+            breakClassName={"page-item"}
+            breakLinkClassName={"page-link"}
+            activeClassName={"active"}
+          />
+        )}
       </div>
 
       <FooterIconComp />

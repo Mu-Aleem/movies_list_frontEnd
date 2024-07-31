@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { PublicRoute, ProtectedRoute } from "./ProtectedRoute";
 
-import NewMovie from "../components/NewMovie";
 import CreateMovie from "../components/CreateMovie";
 import EditComp from "../components/EditComp";
 import MyMovie from "../components/MyMovie";
@@ -30,14 +29,6 @@ const AppRoutes = () => {
               <PublicRoute>
                 <Login />
               </PublicRoute>
-            }
-          />
-          <Route
-            path="/new-movie"
-            element={
-              <ProtectedRoute>
-                <NewMovie />
-              </ProtectedRoute>
             }
           />
           <Route
