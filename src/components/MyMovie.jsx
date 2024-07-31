@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import FooterIconComp from "./Footer";
+import Footer from "./Footer";
 import addIcon from "../assets/svg/add.svg";
 import logoutIcon from "../assets/svg/logout.svg";
 // import Pagination from "./Pagination";
@@ -90,7 +90,7 @@ const MyMovie = () => {
 
         {!loading && movies && movies?.length === 0 && <EmptyMovieList />}
         {loading ? (
-          <div className="flex flex-wrap gap-5 sm:mt-[120px] mt-[80px] w-[95%]  ">
+          <div className="flex flex-wrap gap-3 sm:mt-[120px] mt-[80px]  ">
             <Skeleton />
             <Skeleton />
             <Skeleton />
@@ -108,7 +108,7 @@ const MyMovie = () => {
                 {movies &&
                   movies?.map((ele, index) => (
                     <div
-                      className="w-[180px]  sm:h-[510px] sm:w-[282px] h-[334px] bg-[#092C39] rounded-xl hover:bg-[#082935]"
+                      className="w-[180px]  sm:h-[510px] sm:w-[282px] h-[334px] bg-[#092C39] rounded-xl hover:bg-[#082935] cursor-pointer"
                       key={index}
                       onClick={() => {
                         navigate(`/edit-movie/${ele?._id}`);
@@ -117,7 +117,7 @@ const MyMovie = () => {
                       <img
                         src={ele?.poster}
                         alt={ele?.title}
-                        className="w-[180px] h-[246px] sm:w-[266px] sm:h-[400px] border-2 mx-auto mt-2 rounded-xl object-cover"
+                        className="w-[180px] h-[246px] sm:w-[266px] sm:h-[400px] border-2 mx-auto mt-2 rounded-xl object-cover transition-transform duration-1000 ease-in-out transform hover:scale-105"
                       />
                       <div className="pl-3 flex flex-col gap-3 my-4 text-white">
                         <div className="sm:text-[20px] text-[16px]">
@@ -157,7 +157,7 @@ const MyMovie = () => {
         )}
       </div>
 
-      <FooterIconComp />
+      <Footer />
     </div>
   );
 };
