@@ -3,7 +3,7 @@ import FooterIconComp from "./FooterIconComp";
 import addIcon from "../assets/svg/add.svg";
 import logoutIcon from "../assets/svg/logout.svg";
 import Pagination from "./Pagination";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../lib/store/hook";
 import { clearAuthStorage } from "../lib/store/slice/user/UserSlice";
 import httpRequest from "../axios/index";
@@ -41,12 +41,12 @@ const MyMovie = () => {
       <div className="w-[85%] mx-auto flex flex-col  mt-[120px]">
         {/* Upper section  */}
         <div className="flex justify-between">
-          <div className="flex items-center gap-4">
+          <Link to="/add-movie" className="flex items-center gap-4">
             <div className="text-[48px] font-semibold text-white text-start ">
               My Movies
             </div>
             <img src={addIcon} alt="" className="w-[32px] h-[32px] mt-[8px]" />
-          </div>
+          </Link>
 
           <div
             className="flex items-center gap-3 cursor-pointer"
