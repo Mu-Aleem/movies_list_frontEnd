@@ -32,16 +32,6 @@ const EditComp = () => {
 
   const [previewUrl, setPreviewUrl] = useState("");
 
-  const handleClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
-  const validateImage = () => {
-    if (!fileInputRef.current.files.length) {
-      setError("image", { type: "manual", message: "Image is required" });
-    }
-  };
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -52,10 +42,9 @@ const EditComp = () => {
   };
 
   const onSubmit = async (data) => {
-    validateImage();
     setLoading(true);
     const formData = new FormData();
-    formData.append("file", data.image);
+    formData.append("file", data.image[0]);
     formData.append("upload_preset", "fzu5ffjp");
     let imageURL;
     try {
@@ -92,11 +81,11 @@ const EditComp = () => {
       setLoading(true);
       const response = await httpRequest.get(`${url}/${id}`);
       if (response?.status === 200 || 201) {
-        console.log("🚀 ~ getMovie ~ response:", response);
         const data = response?.data?.data;
         setValue("title", data?.title);
         setValue("publishingYear", data?.publishingYear);
         setValue("poster", data?.poster);
+        setValue("image", data?.poster);
       }
     } catch (error) {
       const errorMessage =
@@ -175,18 +164,23 @@ const EditComp = () => {
               accept="image/*"
               ref={fileInputRef}
               className="hidden"
+              id="fileInput"
               onChange={handleImageChange}
+              {...register("image", { required: "image is required" })}
             />
 
-            <div
+            <label
               className="border-2 border-dotted border-white rounded-[10px] sm:w-[473px] w-[380px] sm:h-[504px] h-[372px] bg-[#224957] flex flex-col justify-center items-center gap-3"
-              onClick={handleClick}
+              htmlFor="fileInput"
             >
               <img src={downloadIcon} alt="" />
               <div className="text-white text-[14px] font-custom">
                 Drop an image here
               </div>
-            </div>
+            </label>
+            {errors.image && (
+              <p className="text-red-500">{errors.image.message}</p>
+            )}
           </div>
 
           {/* Right side  */}
