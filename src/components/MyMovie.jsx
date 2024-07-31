@@ -10,11 +10,12 @@ import httpRequest from "../axios/index";
 import { LOGOUT, MOVIES } from "../constants/apiEndPoints";
 import toast from "react-hot-toast";
 import ReactPaginate from "react-paginate";
+import EmptyMovies from "./EmptyMovies";
 
 const MyMovie = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [Loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [movies, setmovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -86,48 +87,56 @@ const MyMovie = () => {
           </div>
         </div>
 
+        {!loading && movies && movies?.length === 0 && <EmptyMovies />}
+
         {/* Movie Table Card */}
-        <div className="flex flex-wrap gap-3 sm:mt-[120px] mt-[80px] ">
-          {movies &&
-            movies?.map((ele, index) => (
-              <div
-                className="w-[180px]  sm:h-[510px] sm:w-[282px] h-[334px] bg-[#092C39] rounded-xl hover:bg-[#082935]"
-                key={index}
-              >
-                <img
-                  src={ele.poster}
-                  alt=""
-                  className="w-[180px] h-[246px] sm:w-[266px] sm:h-[400px] border-2 mx-auto mt-2 rounded-xl"
-                />
-                <div className="pl-3 flex flex-col gap-3 my-4 text-white">
-                  <div className="sm:text-[20px] text-[16px]">{ele?.title}</div>
-                  <div className="font-normal text-sm">
-                    {ele.publishingYear}
+        {!loading && movies && movies?.length > 0 && (
+          <div className="flex flex-wrap gap-3 sm:mt-[120px] mt-[80px] ">
+            {movies &&
+              movies?.map((ele, index) => (
+                <div
+                  className="w-[180px]  sm:h-[510px] sm:w-[282px] h-[334px] bg-[#092C39] rounded-xl hover:bg-[#082935]"
+                  key={index}
+                >
+                  <img
+                    src={ele.poster}
+                    alt={ele?.title}
+                    className="w-[180px] h-[246px] sm:w-[266px] sm:h-[400px] border-2 mx-auto mt-2 rounded-xl"
+                  />
+                  <div className="pl-3 flex flex-col gap-3 my-4 text-white">
+                    <div className="sm:text-[20px] text-[16px]">
+                      {ele?.title}
+                    </div>
+                    <div className="font-normal text-sm">
+                      {ele.publishingYear}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-        </div>
+              ))}
+          </div>
+        )}
 
-        <ReactPaginate
-          previousLabel={"Previous"}
-          nextLabel={"Next"}
-          breakLabel={"..."}
-          pageCount={totalPages}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageClick}
-          containerClassName={"pagination"}
-          pageClassName={"page-item"}
-          pageLinkClassName={"page-link"}
-          previousClassName={"page-item"}
-          previousLinkClassName={"page-link"}
-          nextClassName={"page-item"}
-          nextLinkClassName={"page-link"}
-          breakClassName={"page-item"}
-          breakLinkClassName={"page-link"}
-          activeClassName={"active"}
-        />
+        {totalPages > 1 && (
+          <ReactPaginate
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
+            breakLabel={"..."}
+            pageCount={totalPages}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            pageClassName={"page-item"}
+            pageLinkClassName={"page-link"}
+            previousClassName={"page-item"}
+            previousLinkClassName={"page-link"}
+            nextClassName={"page-item"}
+            nextLinkClassName={"page-link"}
+            breakClassName={"page-item"}
+            breakLinkClassName={"page-link"}
+            activeClassName={"active"}
+          />
+        )}
       </div>
 
       <FooterIconComp />
