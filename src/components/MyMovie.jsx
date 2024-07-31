@@ -2,9 +2,25 @@ import React from "react";
 import FooterIconComp from "./FooterIconComp";
 import addIcon from "../assets/svg/add.svg";
 import logoutIcon from "../assets/svg/logout.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import httpRequest from "../axios/index";
+import { LOGOUT } from "../constants/apiEndPoints";
+import { useAppDispatch } from "../lib/store/hook";
+import { clearAuthStorage } from "../lib/store/slice/user/UserSlice";
 
 const MyMovie = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    const response = await httpRequest.post(`${LOGOUT}`);
+    if (response?.status === 200) {
+      localStorage.clear();
+      dispatch(clearAuthStorage());
+      navigate("/");
+    }
+  };
+
   return (
     <div className="bg-[#093545] w-full h-auto flex flex-col gap-24 justify-between">
       <div className="w-[85%] mx-auto flex flex-col  mt-[120px]">
@@ -17,7 +33,10 @@ const MyMovie = () => {
             <img src={addIcon} alt="" className="w-[32px] h-[32px] mt-[8px]" />
           </Link>
 
-          <div className="flex items-center gap-3">
+          <div
+            className="flex items-center gap-3 cursor-pointer"
+            onClick={handleLogout}
+          >
             <div className="text-[16px] font-bold text-white">Logout</div>
             <img src={logoutIcon} alt="" className="w-[32px] h-[32px]" />
           </div>

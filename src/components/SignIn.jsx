@@ -6,8 +6,10 @@ import { LOGIN } from "../constants/apiEndPoints";
 import { useAppDispatch } from "../lib/store/hook";
 import { setAuth } from "../lib/store/slice/user/UserSlice";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [Loading, setLoading] = useState(false);
   const {
@@ -26,6 +28,7 @@ const SignIn = () => {
         if (user && token) {
           dispatch(setAuth(user));
           localStorage.setItem("auth_token", JSON.stringify(token));
+          navigate("/movies");
         }
       }
     } catch (error) {

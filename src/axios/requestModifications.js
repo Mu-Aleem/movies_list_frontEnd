@@ -2,8 +2,7 @@ import { store } from "../lib/store";
 import { clearAuthStorage } from "../lib/store/slice/user/UserSlice";
 
 export const requestHandler = (request) => {
-  const state = store.getState();
-  const token = state?.auth?.user?.token || "";
+  const token = JSON.parse(localStorage.getItem("auth_token"));
   if (token) request.headers.Authorization = `Bearer ${token}`;
   return request;
 };

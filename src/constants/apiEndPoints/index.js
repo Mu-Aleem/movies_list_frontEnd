@@ -3,5 +3,6 @@ export const API_BASE_URL =
   "https://movies-rxcx.onrender.com/api/v1/";
 
 const LOGIN = "auth/login";
+const LOGOUT = "auth/logout";
 
-export { LOGIN };
+export { LOGIN, LOGOUT };
