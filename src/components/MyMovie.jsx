@@ -91,7 +91,7 @@ const MyMovie = () => {
 
         {!loading && movies && movies?.length === 0 && <EmptyMovies />}
         {
-        loading ? <div className="flex flex-wrap gap-5 sm:mt-[120px] mt-[80px] w-[95%]  ">
+        loading ? <div className="flex flex-wrap gap-3 sm:mt-[120px] mt-[80px]  ">
           <Skeleton/>
           <Skeleton/>
           <Skeleton/>
