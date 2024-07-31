@@ -1,14 +1,67 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import downloadIcon from "../assets/svg/download.svg";
 import FooterIconComp from "./FooterIconComp";
+import axios from "axios";
+import { useForm, Controller } from "react-hook-form";
 
 const CreateMovie = () => {
+  const {
+    control,
+    handleSubmit,
+    register,
+    setValue,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      title: "",
+      publishingYear: "",
+      image: "",
+    },
+  });
+
   const fileInputRef = useRef(null);
+  const [previewUrl, setPreviewUrl] = useState("");
 
   const handleClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
+  };
+  const validateImage = () => {
+    if (!fileInputRef.current.files.length) {
+      setError("image", { type: "manual", message: "Image is required" });
+    }
+  };
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setPreviewUrl(URL.createObjectURL(file));
+      setValue("image", file);
+      clearErrors("image");
+      // const formData = new FormData();
+      // formData.append("file", file);
+      // formData.append("upload_preset", "fzu5ffjp");
+      // try {
+      //   const response = await axios.post(
+      //     "https://api.cloudinary.com/v1_1/dpyxsusph/image/upload",
+      //     formData
+      //   );
+      //   console.log(
+      //     "🚀 ~ handleUploadFile ~ response.data.secure_url:",
+      //     response?.data?.secure_url
+      //   );
+      // } catch (error) {
+      //   console.error("Error uploading image", error);
+      // } finally {
+      // }
+    }
+  };
+
+  const onSubmit = (data) => {
+    validateImage();
+    console.log("🚀 ~ onSubmit ~ data:", data);
   };
 
   return (
@@ -18,50 +71,101 @@ const CreateMovie = () => {
           Create a new movie
         </div>
 
-        <div className="flex justify-between w-full">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex justify-between w-full"
+        >
+          {/* <div className="flex justify-between w-full"> */}
           {/* Left side  */}
           <div className="w-[45%]">
             <input
               type="file"
               accept="image/*"
               ref={fileInputRef}
-              className=" hidden"
+              className="hidden"
+              onChange={handleImageChange}
             />
 
             <div
               className="border-2 border-dotted border-white rounded-[10px] w-[473px] h-[504px] bg-[#224957] flex flex-col justify-center items-center gap-3"
-              onClick={handleClick}
+              // onClick={handleClick}
+              onClick={() => fileInputRef.current.click()}
             >
               <img src={downloadIcon} alt="" />
               <div className="text-white text-[14px]">Drop an image here</div>
             </div>
+            {errors.image && (
+              <p className="text-red-500">{errors.image.message}</p>
+            )}
           </div>
 
           {/* Right side  */}
           <div className="w-[45%]  flex flex-col gap-7">
-            <input
-              type="text"
-              alt="Email"
-              placeholder="Email"
-              className="h-[45px] w-[362px] bg-[#224957] rounded-[10px] pl-4"
+            <Controller
+              name="title"
+              control={control}
+              rules={{ required: "Title is required" }}
+              render={({ field }) => (
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Title"
+                    className="h-[45px] w-[362px] bg-[#224957] rounded-[10px] pl-4"
+                    {...field}
+                  />
+                  {/* Error message for title */}
+                  {errors.title && (
+                    <p className="text-red-500">{errors.title.message}</p>
+                  )}
+                </div>
+              )}
             />
-            <input
-              type="text"
-              alt="Password"
-              placeholder="Password"
+            <Controller
+              name="publishingYear"
+              control={control}
+              rules={{
+                required: "Publishing year is required",
+                min: { value: 1900, message: "Year must be greater than 1900" },
+                max: {
+                  value: new Date().getFullYear(),
+                  message: `Year must be less than or equal to ${new Date().getFullYear()}`,
+                },
+              }}
+              render={({ field }) => (
+                <div>
+                  <input
+                    type="number"
+                    placeholder="Publishing year"
+                    className="h-[45px] w-[216px] bg-[#224957] rounded-[10px] pl-4"
+                    {...field}
+                  />
+                  {errors.publishingYear && (
+                    <p className="text-red-500">
+                      {errors.publishingYear.message}
+                    </p>
+                  )}
+                </div>
+              )}
+            />
+            {/* <input
+              type="number"
+              placeholder="Publishing year"
               className="h-[45px] w-[216px] bg-[#224957] rounded-[10px] pl-4"
-            />
+            /> */}
 
             <div className="flex gap-4 mt-7">
-              <div className="w-[167px] h-[56px] rounded-[10px]  flex justify-center items-center text-white font-semibold text-[16px] border-[1px]">
-                Title
-              </div>
-              <div className="w-[167px] h-[56px] rounded-[10px] bg-[#2BD17E] flex justify-center items-center text-white font-semibold text-[16px]">
-                Publishing year
-              </div>
+              <button className="w-[167px] h-[56px] rounded-[10px]  flex justify-center items-center text-white font-semibold text-[16px] border-[1px]">
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="w-[167px] h-[56px] rounded-[10px] bg-[#2BD17E] flex justify-center items-center text-white font-semibold text-[16px]"
+              >
+                submit
+              </button>
             </div>
           </div>
-        </div>
+        </form>
       </div>
 
       <FooterIconComp />
