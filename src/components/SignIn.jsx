@@ -55,7 +55,7 @@ const SignIn = () => {
             alt="Email"
             placeholder="Email"
             {...register("email", { required: "Email is required" })}
-            className={`h-[45px] w-full bg-[#224957] rounded-xl pl-4 ${
+            className={`h-[45px] w-full bg-[#224957] rounded-xl pl-4 text-white ${
               errors.email ? "border border-red-500" : ""
             }`}
           />
@@ -71,7 +71,7 @@ const SignIn = () => {
             alt="Password"
             placeholder="Password"
             {...register("password", { required: "Password is required" })}
-            className={`h-[45px] w-full bg-[#224957] rounded-xl pl-4 ${
+            className={`h-[45px] w-full bg-[#224957] rounded-xl pl-4 text-white ${
               errors.password ? "border border-red-500" : ""
             }`}
           />

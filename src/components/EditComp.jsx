@@ -23,8 +23,8 @@ const EditComp = () => {
 
           {/* mobile inputs  */}
           <div className=' sm:hidden w-[380px] mx-auto flex flex-col gap-7 mb-7'>
-          <input type="text" alt='Title' placeholder='Title'  className='h-[45px] bg-[#224957] w-full   rounded-[10px] pl-4 '/>
-          <input type="text" alt='Publishing year' placeholder='Publishing year'  className='h-[45px]  w-full  bg-[#224957] rounded-[10px] pl-4 '/>
+          <input type="text" alt='Title' placeholder='Title'  className='h-[45px] bg-[#224957] w-full   rounded-[10px] pl-4 text-white outline-white'/>
+          <input type="text" alt='Publishing year' placeholder='Publishing year'  className='h-[45px]  w-full  bg-[#224957] rounded-[10px] pl-4 text-white outline-white'/>
           </div>
 
             {/* Left side  */}
@@ -43,8 +43,8 @@ const EditComp = () => {
 
             {/* Right side  */}
             <div className='w-[380px] sm:w-[473px] h-auto  flex flex-col gap-7 mx-auto'>
-            <input type="text" alt='Title' placeholder='Title'  className='h-[45px] w-[362px] bg-[#224957] rounded-[10px] pl-4 sm:block hidden'/>
-            <input type="text" alt='Publishing year' placeholder='Publishing year'  className='h-[45px] w-[216px] bg-[#224957] rounded-[10px] pl-4 sm:block hidden'/>
+            <input type="text" alt='Title' placeholder='Title'  className='h-[45px] w-[362px] bg-[#224957] rounded-[10px] pl-4 sm:block hidden text-white'/>
+            <input type="text" alt='Publishing year' placeholder='Publishing year'  className='h-[45px] w-[216px] bg-[#224957] rounded-[10px] pl-4 sm:block hidden text-white'/>
 
             <div className='flex gap-4 mt-9'>
             <div className='w-[47%] sm:w-[167px] h-[56px] rounded-[10px]  flex justify-center items-center text-white font-semibold text-[16px] border-[1px]'>
