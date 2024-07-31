@@ -1,23 +1,21 @@
-import React from 'react'
-import FooterIconComp from './FooterIconComp'
+import React from "react";
+import FooterIconComp from "./FooterIconComp";
 
 const NewMovie = () => {
   return (
-    <div className='bg-[#093545] w-full h-auto min-h-screen flex flex-col gap-24 justify-between'>
-
-      <div className='flex flex-col gap-7 justify-center mt-[324px] mb-[170px]'>
-        <div className='sm:text-[48px] text-[32px] font-semibold text-white text-center sm:px-0 px-4 font-custom'>
-            Your movie list is empty
+    <div className="bg-[#093545] w-full h-auto min-h-screen flex flex-col gap-24 justify-between">
+      <div className="flex flex-col gap-7 justify-center mt-[324px] mb-[170px]">
+        <div className="sm:text-[48px] text-[32px] font-semibold text-white text-center sm:px-0 px-4 font-Montserrat">
+          Your movie list is empty
         </div>
-        <div className='sm:w-[202px] w-[87%] h-[54px] rounded-[10px] mx-auto bg-[#2BD17E] flex justify-center items-center text-white font-semibold text-[16px] font-custom'>
-            Add a new movie
+        <div className="sm:w-[202px] w-[87%] h-[54px] rounded-[10px] mx-auto bg-[#2BD17E] flex justify-center items-center text-white font-semibold text-[16px] font-Montserrat">
+          Add a new movie
         </div>
       </div>
 
-     <FooterIconComp/>
+      <FooterIconComp />
+    </div>
+  );
+};
 
-</div>
-  )
-}
-
-export default NewMovie
+export default NewMovie;
